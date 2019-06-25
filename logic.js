@@ -33,7 +33,7 @@ const Tweeter = function(){
     //function that pushes new post into the posts array
     const addPost = function(text){
         const postID = "p" + (postIdCounter + 1)
-        postIdCounter += 1
+        postIdCounter ++
         return _posts.push({text: text, id: postID, comments: []})
     }
 
@@ -48,8 +48,8 @@ const Tweeter = function(){
 
     //function that pushes a text comment into the comments array of the post with the given ID
     const addComment = function(text, postID){
-        const commentID = "c" + (commentIdCounter + 1)
-        commentIdCounter += 1
+        commentIdCounter ++
+        const commentID = "c" + commentIdCounter
         for(let index in _posts){
             if (_posts[index].id === postID){
                 return _posts[index].comments.push({id: commentID, text: text})
@@ -83,14 +83,15 @@ const Tweeter = function(){
 
 
 
-const tweeter = Tweeter()
-tweeter.addPost("This is my own post!")
-tweeter.removePost("p1")
-tweeter.addComment("Damn straight it is!", "p3")
-tweeter.addComment("Second the best!", "p2")
-tweeter.removeComment("p2", "c6")
-console.log(tweeter.getPosts())
 
-
+/*const findPostById = function(postID){
+    const removePost = function(postID){
+        for(let index in _posts){
+            if (_posts[index].id === postID){
+                return _posts.splice(index, 1)
+            }
+        }
+    }
+}*/
 
 
