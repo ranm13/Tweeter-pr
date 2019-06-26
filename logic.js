@@ -27,6 +27,15 @@ const Tweeter = function(){
     //commentIdCounter to count the number of total comments
     let commentIdCounter = 6
 
+    //finds a post by using his ID
+    const findPostById = function(postID){
+        for(let index in _posts){
+            if (_posts[index].id === postID){
+                return index
+            }
+        }
+    }
+
     //function that returns the posts array
     const getPosts = () => _posts
 
@@ -39,39 +48,28 @@ const Tweeter = function(){
 
     //function that removes a post from the posts array by ID
     const removePost = function(postID){
-        for(let index in _posts){
-            if (_posts[index].id === postID){
-                return _posts.splice(index, 1)
-            }
-        }
+        let index = findPostById(postID)
+        return _posts.splice(index, 1)
     }
-
+        
     //function that pushes a text comment into the comments array of the post with the given ID
     const addComment = function(text, postID){
         commentIdCounter ++
         const commentID = "c" + commentIdCounter
-        for(let index in _posts){
-            if (_posts[index].id === postID){
-                return _posts[index].comments.push({id: commentID, text: text})
-            }
+        let index = findPostById(postID)
+        return _posts[index].comments.push({id: commentID, text: text})
+    }
+    
+    //function that removes a comment from the comments array of the specific post ID and comment ID
+    const removeComment = function(postID, commentID){
+        let index = findPostById(postID)
+        for(let commentIndex in _posts[index].comments){
+            if(_posts[index].comments[commentIndex].id === commentID){
+                return _posts[index].comments.splice(commentIndex, 1)
+            }  
         }
     }
     
-
-    //function that removes a comment from the comments array of the specific post ID and comment ID
-    const removeComment = function(postID, commentID){
-        for(let index in _posts){
-            if (_posts[index].id === postID){
-                for(let commentIndex in _posts[index].comments){
-                    if(_posts[index].comments[commentIndex].id === commentID){
-                        return _posts[index].comments.splice(commentIndex, 1)
-                    }
-                }
-                
-            }
-        }
-    }
-
     return {
         getPosts,
         addPost,
@@ -80,18 +78,5 @@ const Tweeter = function(){
         removeComment
     }
 }
-
-
-
-
-/*const findPostById = function(postID){
-    const removePost = function(postID){
-        for(let index in _posts){
-            if (_posts[index].id === postID){
-                return _posts.splice(index, 1)
-            }
-        }
-    }
-}*/
 
 

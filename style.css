@@ -66,3 +66,8 @@ body{
 .user-comment{
     margin: 20px;
 }
+
+.delete-comment{
+    cursor: pointer;
+    color: #e74c3c;
+}
